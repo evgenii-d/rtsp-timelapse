@@ -1,0 +1,87 @@
+#:kivy 2.1.0
+#:import Factory kivy.factory.Factory
+
+<ChooseFolder@Popup>:
+    auto_dismiss: False
+    size_hint: .9, .9
+    title: 'Choose a folder to store images'
+
+    BoxLayout:
+        orientation: 'vertical'
+        FileChooserListView:
+            id: file_chooser
+            path: app.root.get_images_dir()
+            filters: [app.root.dir_only]
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, None
+            height: '40dp'
+            Button:
+                text: 'Cancel'
+                pos_hint: {'center_x': .5}
+                on_release: 
+                    root.dismiss()
+            Button:
+                text: 'Set folder'
+                pos_hint: {'center_x': .5}
+                on_release: 
+                    app.root.set_images_dir(file_chooser.path)
+                    root.dismiss()
+
+<AppLayout>:
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.width, root.height
+        padding: '40dp'
+        spacing: '20dp'
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, None
+            height: '40dp'
+            Button:
+                text: 'Add capture'
+                on_press: root.add_capture()
+            Button:
+                text: 'Change folder'
+                on_release: Factory.ChooseFolder().open()
+                
+        Label:
+            id: images_folder
+            size_hint: 1, None
+            height: '30dp'
+            text_size: self.size
+            halign: 'left'
+            shorten: True
+        
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, None
+            height: '40dp'
+            Label:
+                text: 'ID'
+                size_hint: .35, 1
+            Label:
+                text: 'Source'
+                size_hint: 1, 1
+            Label:
+                text: 'Interval'
+                size_hint: .25, 1
+            Label:
+                text: 'Quality'
+                size_hint: .25, 1
+            Label:
+                text: 'Capture'
+                size_hint: .5, 1
+            Label:
+                size_hint: .15, 1
+
+        ScrollView:
+            GridLayout:
+                id: capture_list
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                row_force_default: True
+                row_default_height: '40dp'
+                spacing: '10dp'
