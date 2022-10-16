@@ -9,7 +9,7 @@ Tested on Windows 10/11
 - OpenCV
 
 ## Installation
-1. Go to [releases section](https://github.com/zerson13/rtsp-timelapse/releases)
+1. Go to [releases section](https://github.com/evgenii-d/rtsp-timelapse/releases)
 2. Download the `.zip` file.
 3. Extract files and run `rtsp_timelapse`
 
